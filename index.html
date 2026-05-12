@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saudi Weather Discover</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="header-icon" aria-hidden="true">☀️</div>
+      <div>
+        <h1>Weather in Saudi Cities</h1>
+        <p>Type a city name, then see temperatures in Celsius or Fahrenheit.</p>
+      </div>
+    </header>
+
+    <section class="search-card">
+      <label class="search-box" for="city-input">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input id="city-input" type="text" placeholder="Enter a Saudi city (e.g. Riyadh)" autocomplete="off">
+      </label>
+      <button id="search-button" class="action-button">Search weather</button>
+    </section>
+
+    <section class="toggle-card">
+      <div class="toggle-icon">🌡️</div>
+      <button id="unit-toggle" class="unit-button" aria-pressed="false">Show Fahrenheit</button>
+    </section>
+
+    <section id="weather-card" class="weather-card hidden">
+      <div class="weather-details">
+        <div class="city-name" id="city-name"></div>
+        <div class="weather-text" id="weather-text"></div>
+      </div>
+      <div class="temperature-display">
+        <div class="temperature-value" id="temperature-value">--</div>
+        <div class="temperature-unit" id="temperature-unit">°C</div>
+      </div>
+    </section>
+
+    <div id="message-box" class="message-box"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
