@@ -3,6 +3,7 @@ const searchButton = document.getElementById('search-button');
 const unitToggle = document.getElementById('unit-toggle');
 const weatherCard = document.getElementById('weather-card');
 const cityNameElement = document.getElementById('city-name');
+const cityTimeElement = document.getElementById('city-time');
 const weatherTextElement = document.getElementById('weather-text');
 const temperatureValueElement = document.getElementById('temperature-value');
 const temperatureUnitElement = document.getElementById('temperature-unit');
@@ -47,10 +48,16 @@ async function lookupSaudiCity(cityName) {
 }
 
 async function fetchWeather(latitude, longitude) {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh&timezone=auto`;
   const response = await fetch(url);
   const data = await response.json();
-  return data.current_weather;
+  if (!data.current_weather) {
+    throw new Error('No current weather returned');
+  }
+  return {
+    ...data.current_weather,
+    timezone: data.timezone
+  };
 }
 
 function getWeatherDescription(code) {
@@ -95,9 +102,21 @@ function formatTemperature() {
   return Math.round(currentTemperatureC);
 }
 
+function getCurrentLocalTime(timezone) {
+  if (!timezone) return '--';
+  return new Date().toLocaleTimeString('en-US', {
+    timeZone: timezone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+}
+
 function displayWeather(location, weather) {
   const region = location.admin1 ? `, ${location.admin1}` : '';
   cityNameElement.textContent = `${location.name}${region}, ${location.country}`;
+  const localTimeText = weather.timezone ? getCurrentLocalTime(weather.timezone) : '--';
+  cityTimeElement.textContent = `Local time: ${localTimeText}`;
   weatherTextElement.textContent = `${getWeatherDescription(weather.weathercode)} • Wind ${weather.windspeed} km/h`;
   temperatureValueElement.textContent = formatTemperature();
   temperatureUnitElement.textContent = useFahrenheit ? '°F' : '°C';

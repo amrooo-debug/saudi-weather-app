@@ -19,7 +19,7 @@
     <section class="search-card">
       <label class="search-box" for="city-input">
         <span class="search-icon" aria-hidden="true">🔍</span>
-        <input id="city-input" type="text" placeholder="Enter a Saudi city (e.g. Riyadh)" autocomplete="off">
+        <input id="city-input" type="text" placeholder="Enter any city to check its weather" autocomplete="off">
       </label>
       <button id="search-button" class="action-button">Search weather</button>
     </section>
@@ -32,6 +32,7 @@
     <section id="weather-card" class="weather-card hidden">
       <div class="weather-details">
         <div class="city-name" id="city-name"></div>
+        <div class="city-time" id="city-time">Local time: --</div>
         <div class="weather-text" id="weather-text"></div>
       </div>
       <div class="temperature-display">
