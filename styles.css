@@ -1,7 +1,6 @@
 :root {
   color-scheme: light;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f7f9fd;
   color: #1f2937;
 }
 
@@ -15,14 +14,93 @@ body {
   display: grid;
   place-items: center;
   padding: 24px;
+  background: linear-gradient(180deg, #1a3a5c 0%, #1e6bb5 35%, #4a9fd4 68%, #87ceeb 100%);
+  overflow: hidden;
+}
+
+.bg-scene {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sun {
+  position: absolute;
+  top: 48px;
+  right: 10%;
+  width: 110px;
+  height: 110px;
+  background: radial-gradient(circle, #fff7a0 30%, #ffe03a 65%, #ffb300 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px rgba(255, 224, 58, 0.18),
+              0 0 0 40px rgba(255, 200, 40, 0.1),
+              0 0 80px 30px rgba(255, 200, 40, 0.25);
+  animation: sunPulse 5s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { box-shadow: 0 0 0 18px rgba(255,224,58,0.18), 0 0 0 40px rgba(255,200,40,0.10), 0 0 80px 30px rgba(255,200,40,0.25); }
+  50%       { box-shadow: 0 0 0 24px rgba(255,224,58,0.22), 0 0 0 52px rgba(255,200,40,0.13), 0 0 110px 40px rgba(255,200,40,0.32); }
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 50px;
+  animation: floatCloud linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  width: 210px; height: 58px;
+  top: 90px; left: -230px;
+  animation-duration: 38s; animation-delay: 0s;
+}
+.cloud-1::before { width: 100px; height: 82px; top: -42px; left: 28px; }
+.cloud-1::after  { width: 72px;  height: 60px; top: -32px; left: 96px; }
+
+.cloud-2 {
+  width: 170px; height: 50px;
+  top: 200px; left: -190px;
+  animation-duration: 52s; animation-delay: -18s;
+  opacity: 0.72;
+}
+.cloud-2::before { width: 85px; height: 68px; top: -36px; left: 22px; }
+.cloud-2::after  { width: 58px; height: 46px; top: -26px; left: 78px; }
+
+.cloud-3 {
+  width: 250px; height: 66px;
+  top: 28px; left: -270px;
+  animation-duration: 46s; animation-delay: -30s;
+  opacity: 0.5;
+}
+.cloud-3::before { width: 115px; height: 92px; top: -48px; left: 42px; }
+.cloud-3::after  { width: 82px;  height: 66px; top: -36px; left: 118px; }
+
+@keyframes floatCloud {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(100vw + 320px)); }
 }
 
 .app-shell {
   width: min(660px, 100%);
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-radius: 28px;
-  box-shadow: 0 24px 80px rgba(31, 41, 55, 0.08);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.35);
   padding: 32px;
+  position: relative;
+  z-index: 1;
 }
 
 .app-header {
